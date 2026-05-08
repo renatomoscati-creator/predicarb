@@ -511,7 +511,6 @@ def cmd_backtest(args: argparse.Namespace) -> int:
 def cmd_run_multi(args: argparse.Namespace) -> int:
     import asyncio
 
-    from src.benchmark.csv_benchmark import BenchmarkProvider, ConstantBenchmark
     from src.polymarket.auth import PolymarketSigner
     from src.storage.db import Database
     from src.strategy.multi_runner import MultiMarketRunner
@@ -524,14 +523,15 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
     logger = get_logger(__name__)
 
     tickers: list[str] = args.tickers
-    benchmark_prob: float = args.benchmark
+    benchmark = _build_benchmark(args)
+    benchmark_source = getattr(args, "benchmark_source", "constant") or "constant"
     size: int = args.size
     min_edge: float = args.min_edge
     dry_run: bool = args.dry_run
 
     logger.info(
-        "Starting multi-market run: tickers=%s benchmark=%.4f size=%d min_edge=%.4f dry_run=%s",
-        tickers, benchmark_prob, size, min_edge, dry_run,
+        "Starting multi-market run: tickers=%s benchmark_source=%s size=%d min_edge=%.4f dry_run=%s",
+        tickers, benchmark_source, size, min_edge, dry_run,
     )
 
     client = PolymarketClient(settings)
@@ -571,7 +571,7 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
         trading_runner = TradingRunner(
             client=client,
             db=db,
-            benchmark=ConstantBenchmark(benchmark_prob),
+            benchmark=benchmark,
             filters=filters,
             ticker=ticker,
             size=size,
@@ -911,8 +911,26 @@ def build_parser() -> argparse.ArgumentParser:
     p_multi.add_argument(
         "--benchmark",
         type=float,
-        required=True,
+        required=False,
+        default=None,
         help="Constant benchmark probability in [0, 1] (shared across all markets).",
+    )
+    p_multi.add_argument(
+        "--benchmark-source",
+        choices=["constant", "zq"],
+        default="constant",
+        help="Benchmark source: 'constant' (use --benchmark) or 'zq' for live CME futures (default: constant).",
+    )
+    p_multi.add_argument(
+        "--zq-meeting-date",
+        default=None,
+        help="FOMC meeting date (YYYY-MM-DD) for ZQ benchmark. Required when --benchmark-source=zq.",
+    )
+    p_multi.add_argument(
+        "--benchmark-ttl",
+        type=float,
+        default=60.0,
+        help="Live benchmark cache TTL in seconds (default: 60).",
     )
     p_multi.add_argument("--size", type=int, required=True, help="Contracts per order.")
     p_multi.add_argument(
