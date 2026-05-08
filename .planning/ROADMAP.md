@@ -30,7 +30,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. `src/storage/models.py` and `src/cli.py` contain no PLACEHOLDER comments
   4. `.gitignore` exists and covers `venv/`, `data/`, `logs/`, `*.pyc`, `.DS_Store`, `.env.*`
   5. `git log --oneline` shows exactly one commit with a clean working tree (`git status` is clean)
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Create .github/workflows/test.yml (CI-01, CI-02)
 
 ### Phase 2: Code Quality
 **Goal**: The codebase has a single source of truth for ConstantBenchmark, the dashboard reads positions and orders through the shared Database abstraction, and all 134 tests remain green after every change.
@@ -88,7 +91,10 @@ Plans:
   1. `.github/workflows/test.yml` exists and triggers on `push` to `main` and on `pull_request`
   2. CI matrix specifies `python-version: ["3.13"]` and `os: ubuntu-latest`
   3. A pushed commit causes the GitHub Actions check to run and pass (green badge)
-**Plans**: TBD
+**Plans**: 1 plan
+
+Plans:
+- [ ] 05-01-PLAN.md — Create .github/workflows/test.yml (CI-01, CI-02)
 
 ## Progress
 
