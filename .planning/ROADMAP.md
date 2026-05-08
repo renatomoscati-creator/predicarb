@@ -57,7 +57,12 @@ Plans:
   3. `python3 -m src.cli run-multi --benchmark-source constant --dry-run` resolves benchmark and starts without error
   4. Adding a new benchmark source requires only registering it in `registry.py` — no changes to `_build_benchmark()` in `cli.py`
   5. `python3 -m pytest` exits 0 (no regressions introduced)
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Create BenchmarkRegistry + register constant/zq + TDD tests (BENCH-01, BENCH-02)
+- [ ] 03-02-PLAN.md — Refactor _build_benchmark() to use registry + wire run-multi flags (BENCH-03, BENCH-04)
+- [ ] 03-03-PLAN.md — Add benchmark extension guide section to README.md (BENCH-05)
 
 ### Phase 4: Packaging & Docs
 **Goal**: PredicArb is installable as a Python package via `pip install -e .` and ships a README that lets a new user run their first trade in under ten minutes.
@@ -90,6 +95,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Repo Hygiene | 1/1 | Complete | 2026-05-08 |
 | 2. Code Quality | 2/2 | Complete    | 2026-05-08 |
-| 3. Benchmark Registry | 0/? | Not started | - |
+| 3. Benchmark Registry | 0/3 | Not started | - |
 | 4. Packaging & Docs | 0/? | Not started | - |
 | 5. CI & Ship | 0/? | Not started | - |
