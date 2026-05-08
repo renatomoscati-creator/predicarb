@@ -141,6 +141,7 @@ def cmd_watch(args: argparse.Namespace) -> int:
 
 
 def cmd_signal(args: argparse.Namespace) -> int:
+    from src.benchmark.csv_benchmark import ConstantBenchmark
     settings = get_settings()
     configure_logging(settings.logs_dir, settings.log_level)
     logger = get_logger(__name__)
@@ -158,16 +159,12 @@ def cmd_signal(args: argparse.Namespace) -> int:
         print(f"Error fetching orderbook: {exc}", file=sys.stderr)
         return 1
 
-    class ConstantBenchmark:
-        def get_prob(self, ts_utc: datetime) -> float:  # type: ignore[override]
-            return benchmark_prob
-
     filters = EdgeFilters(
         max_spread=args.max_spread,
         min_depth=args.min_depth,
         max_staleness_seconds=args.max_staleness,
     )
-    result = compute_edge(orderbook=ob, benchmark=ConstantBenchmark(), filters=filters)
+    result = compute_edge(orderbook=ob, benchmark=ConstantBenchmark(benchmark_prob), filters=filters)
 
     print(f"Ticker          : {ticker}")
     print(f"Benchmark prob  : {result.benchmark_prob:.4f}")
@@ -514,7 +511,7 @@ def cmd_backtest(args: argparse.Namespace) -> int:
 def cmd_run_multi(args: argparse.Namespace) -> int:
     import asyncio
 
-    from src.benchmark.csv_benchmark import BenchmarkProvider
+    from src.benchmark.csv_benchmark import BenchmarkProvider, ConstantBenchmark
     from src.polymarket.auth import PolymarketSigner
     from src.storage.db import Database
     from src.strategy.multi_runner import MultiMarketRunner
@@ -541,10 +538,6 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
 
     db = Database(settings.data_dir / "polymarket_bot.sqlite")
     db.init()
-
-    class ConstantBenchmark(BenchmarkProvider):
-        def get_prob(self, ts_utc: datetime) -> float:
-            return benchmark_prob
 
     filters = EdgeFilters(
         max_spread=args.max_spread,
@@ -578,7 +571,7 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
         trading_runner = TradingRunner(
             client=client,
             db=db,
-            benchmark=ConstantBenchmark(),
+            benchmark=ConstantBenchmark(benchmark_prob),
             filters=filters,
             ticker=ticker,
             size=size,
@@ -603,7 +596,7 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
 
 def _build_benchmark(args: argparse.Namespace):
     """Construct the appropriate BenchmarkProvider from CLI args."""
-    from src.benchmark.csv_benchmark import BenchmarkProvider
+    from src.benchmark.csv_benchmark import BenchmarkProvider, ConstantBenchmark
 
     source = getattr(args, "benchmark_source", "constant") or "constant"
 
@@ -622,11 +615,7 @@ def _build_benchmark(args: argparse.Namespace):
     if benchmark_prob is None:
         raise ValueError("--benchmark is required when --benchmark-source is 'constant' (default)")
 
-    class ConstantBenchmark(BenchmarkProvider):
-        def get_prob(self, ts_utc: datetime) -> float:
-            return benchmark_prob
-
-    return ConstantBenchmark()
+    return ConstantBenchmark(benchmark_prob)
 
 
 def cmd_run(args: argparse.Namespace) -> int:
