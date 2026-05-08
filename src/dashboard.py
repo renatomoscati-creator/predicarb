@@ -11,10 +11,11 @@ Keys: r = refresh  d = remove selected ticker  q = quit
 from __future__ import annotations
 
 import sqlite3
-import threading
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
+
+from src.storage.db import Database
 from zoneinfo import ZoneInfo
 
 from textual import work
@@ -99,116 +100,6 @@ def _decision(d: str) -> str:
 def _side(s: str) -> str:
     s = s.upper()
     return f"[{_GREEN}]▲ BUY[/]" if s == "BUY" else f"[{_RED}]▼ SELL[/]"
-
-
-# ── data layer ────────────────────────────────────────────────────────────────
-
-_WATCHED_DDL = """
-CREATE TABLE IF NOT EXISTS watched_tickers (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT,
-    ticker        TEXT    NOT NULL UNIQUE,
-    label         TEXT    NOT NULL DEFAULT '',
-    benchmark     REAL    NOT NULL DEFAULT 0.50,
-    added_at      TEXT    NOT NULL
-);
-"""
-
-
-class _DB:
-    def __init__(self, path: Path) -> None:
-        self._p    = path
-        self._lock = threading.Lock()
-        if path.exists():
-            self._exec(_WATCHED_DDL)
-
-    def _exec(self, sql: str, params: tuple = ()) -> None:
-        with self._lock:
-            try:
-                c = sqlite3.connect(self._p, check_same_thread=False)
-                if params:
-                    c.execute(sql, params)
-                else:
-                    c.executescript(sql)
-                c.commit(); c.close()
-            except Exception:
-                pass
-
-    def _q(self, sql: str, params: tuple = ()) -> list[sqlite3.Row]:
-        if not self._p.exists():
-            return []
-        with self._lock:
-            try:
-                c = sqlite3.connect(self._p, check_same_thread=False)
-                c.row_factory = sqlite3.Row
-                rows = c.execute(sql, params).fetchall()
-                c.close()
-                return rows
-            except Exception:
-                return []
-
-    def positions(self):
-        return self._q("SELECT * FROM positions ORDER BY ticker")
-
-    def open_orders(self):
-        return self._q(
-            "SELECT * FROM orders WHERE status='placed' AND poly_order_id IS NOT NULL "
-            "ORDER BY ts_utc DESC LIMIT 15"
-        )
-
-    def signals(self, limit: int = 12):
-        return self._q("SELECT * FROM signals ORDER BY ts_utc DESC LIMIT ?", (limit,))
-
-    def fills(self, limit: int = 12):
-        return self._q("SELECT * FROM fills ORDER BY ts_utc DESC LIMIT ?", (limit,))
-
-    def ticks_latest(self):
-        return self._q(
-            """SELECT t.* FROM ticks t
-               INNER JOIN (SELECT ticker, MAX(ts_utc) AS mx FROM ticks GROUP BY ticker) l
-               ON t.ticker = l.ticker AND t.ts_utc = l.mx
-               ORDER BY t.ts_utc DESC"""
-        )
-
-    def summary(self) -> dict:
-        rows = self._q("SELECT yes_count, realized_pnl FROM positions")
-        return dict(
-            total_pnl   = sum(r["realized_pnl"] for r in rows),
-            open_long   = sum(r["yes_count"]   for r in rows if r["yes_count"] > 0),
-            open_short  = sum(abs(r["yes_count"]) for r in rows if r["yes_count"] < 0),
-            open_orders = len(self._q(
-                "SELECT id FROM orders WHERE status='placed' AND poly_order_id IS NOT NULL"
-            )),
-            markets     = len(rows),
-        )
-
-    def watched(self):
-        return self._q(
-            "SELECT w.*, t.yes_bid, t.yes_ask, t.yes_mid "
-            "FROM watched_tickers w "
-            "LEFT JOIN ("
-            "  SELECT t2.ticker, t2.yes_bid, t2.yes_ask, t2.yes_mid "
-            "  FROM ticks t2 "
-            "  INNER JOIN (SELECT ticker, MAX(ts_utc) mx FROM ticks GROUP BY ticker) lx "
-            "  ON t2.ticker=lx.ticker AND t2.ts_utc=lx.mx"
-            ") t ON w.ticker=t.ticker "
-            "ORDER BY w.added_at"
-        )
-
-    def add_watched(self, ticker: str, label: str, benchmark: float) -> None:
-        self._exec(
-            "INSERT OR REPLACE INTO watched_tickers (ticker, label, benchmark, added_at) "
-            "VALUES (?, ?, ?, ?)",
-            (ticker.strip(), label.strip(), benchmark,
-             datetime.now(timezone.utc).isoformat()),
-        )
-
-    def remove_watched(self, ticker: str) -> None:
-        self._exec("DELETE FROM watched_tickers WHERE ticker=?", (ticker,))
-
-    def backtest_runs(self, limit: int = 10):
-        return self._q(
-            "SELECT * FROM backtest_runs ORDER BY ts_utc DESC LIMIT ?", (limit,)
-        )
 
 
 # ── base CSS ──────────────────────────────────────────────────────────────────
@@ -561,7 +452,7 @@ class LiveMarketsTab(Vertical, can_focus=False):
 
 class AddTickerTab(Vertical):
 
-    def __init__(self, db: "_DB", **kw) -> None:
+    def __init__(self, db: "Database", **kw) -> None:
         super().__init__(**kw)
         self._db = db
 
@@ -739,7 +630,7 @@ class AddTickerTab(Vertical):
 
 class BacktestTab(Vertical):
 
-    def __init__(self, db: "_DB", **kw) -> None:
+    def __init__(self, db: "Database", **kw) -> None:
         super().__init__(**kw)
         self._db = db
 
@@ -918,7 +809,7 @@ class BacktestTab(Vertical):
         )
         try:
             _, run = engine.run(Path(csv_path))
-            db_main = Database(self._db._p)
+            db_main = Database(self._db._path)
             db_main.init()
             db_main.insert_backtest_run(run)
             self.call_from_thread(self._done, True, "")
@@ -979,7 +870,8 @@ class PredicArbDashboard(App):
 
     def __init__(self, db_path: Path, refresh_interval: float = 5.0) -> None:
         super().__init__()
-        self._db       = _DB(db_path)
+        self._db       = Database(db_path)
+        self._db.init()
         self._interval = refresh_interval
 
     def compose(self) -> ComposeResult:
