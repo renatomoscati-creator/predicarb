@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-01-PLAN.md (BenchmarkRegistry)
-last_updated: "2026-05-08T17:34:57.396Z"
+stopped_at: Completed 03-03-PLAN.md (Benchmark Extension Guide README)
+last_updated: "2026-05-08T17:37:34.523Z"
 last_activity: "2026-05-08 — Completed 02-01: ConstantBenchmark consolidation"
 progress:
   total_phases: 5
   completed_phases: 1
   total_plans: 5
-  completed_plans: 3
+  completed_plans: 4
   percent: 100
 ---
 
@@ -52,6 +52,7 @@ Progress: [██████████] 100%
 *Updated after each plan completion*
 | Phase 02-code-quality P02 | 115 | 2 tasks | 2 files |
 | Phase 03-benchmark-registry P01 | 120 | 1 tasks | 2 files |
+| Phase 03-benchmark-registry P03 | 54 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,8 @@ Recent decisions affecting current work:
 - [Phase 02-code-quality]: Dashboard now uses src.storage.db.Database as sole SQLite wrapper — _DB class removed, watched_tickers DDL migrated to _SCHEMA
 - [Phase 03-benchmark-registry]: Factory **_ pattern — each factory ignores unrelated kwargs so registry.get(source, **vars(args)) is safe for CLI forwarding
 - [Phase 03-benchmark-registry]: Lazy imports inside factories — ConstantBenchmark and ZqLiveBenchmark imported inside the factory function, not at module level, keeping registry import fast and side-effect free
+- [Phase 03-benchmark-registry]: README created from scratch: file did not exist; minimal surrounding structure added per plan guidance
+- [Phase 03-benchmark-registry]: Factory convention documented: accept **kwargs, return get_prob(ts_utc), raise ValueError for missing required params
 
 ### Pending Todos
 
@@ -80,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-08T17:34:57.394Z
-Stopped at: Completed 03-01-PLAN.md (BenchmarkRegistry)
+Last session: 2026-05-08T17:37:34.521Z
+Stopped at: Completed 03-03-PLAN.md (Benchmark Extension Guide README)
 Resume file: None

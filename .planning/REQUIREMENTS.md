@@ -29,7 +29,7 @@
 - [x] **BENCH-02**: ZQ benchmark registered under key `"zq"`, constant benchmark under `"constant"` — both via registry
 - [ ] **BENCH-03**: `_build_benchmark()` in `src/cli.py` reads from registry; adding a new source requires only registering it, not editing CLI internals
 - [ ] **BENCH-04**: `run-multi` command supports `--benchmark-source` and `--zq-meeting-date` (same flag surface as `run`)
-- [ ] **BENCH-05**: Benchmark registry is documented with a clear extension example in README
+- [x] **BENCH-05**: Benchmark registry is documented with a clear extension example in README
 
 ### Packaging
 
@@ -94,7 +94,7 @@
 | BENCH-02 | Phase 3 | Complete |
 | BENCH-03 | Phase 3 | Pending |
 | BENCH-04 | Phase 3 | Pending |
-| BENCH-05 | Phase 3 | Pending |
+| BENCH-05 | Phase 3 | Complete |
 | PKG-01 | Phase 4 | Pending |
 | PKG-02 | Phase 4 | Pending |
 | PKG-03 | Phase 4 | Pending |
