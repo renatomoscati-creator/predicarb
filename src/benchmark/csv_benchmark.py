@@ -74,3 +74,13 @@ class CsvBenchmark(BenchmarkProvider):
                 break
         return last_prob
 
+
+class ConstantBenchmark:
+    """Benchmark that always returns the same probability regardless of timestamp."""
+
+    def __init__(self, prob: float) -> None:
+        self._prob = prob
+
+    def get_prob(self, ts_utc: datetime) -> float:  # noqa: ARG002
+        return self._prob
+
