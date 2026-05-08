@@ -107,4 +107,4 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 2. Code Quality | 2/2 | Complete    | 2026-05-08 |
 | 3. Benchmark Registry | 3/3 | Complete   | 2026-05-08 |
 | 4. Packaging & Docs | 2/2 | Complete   | 2026-05-08 |
-| 5. CI & Ship | 1/1 | Complete   | 2026-05-08 |
+| 5. CI & Ship | 1/1 | Complete    | 2026-05-08 |
