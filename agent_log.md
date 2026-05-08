@@ -50,3 +50,21 @@
 - Created tests/test_benchmark_registry.py: 9 tests (constant, zq w/ mock, unknown key, custom register, kwargs forwarding, keys())
 - 145 tests passing (136 + 9 new). BENCH-01, BENCH-02 resolved.
 - Commits: 5385916 (feat), 90173ec (docs)
+
+## 2026-05-08 20:30
+- Executed Phase 3 (Benchmark Registry): Wave 1 created registry.py + 9 TDD tests, Wave 2 refactored _build_benchmark() + wired run-multi flags + created README.md
+- 149 tests pass (13 new). BENCH-01..05 all satisfied. Verification 9/9.
+- Wrote HANDOFF.md. Commits: 5385916, 5811abf, fb79167, 12f7b38, a88cb7a, 32493f8.
+
+## 2026-05-08 21:00
+- Planned Phase 4 (Packaging & Docs): read Phase 3 HANDOFF as research context (research disabled)
+- 2 plans in 1 wave: 04-01 (pyproject.toml + predicarb entry point), 04-02 (README expansion)
+- Created 04-VALIDATION.md with manual PKG verify steps + grep-based DOC checks
+- Checker passed all 7 requirements (PKG-01..03, DOC-01..04). Commits: 95ae2d4, 3360dc1.
+
+## 2026-05-08 19:18
+- Executed Phase 4 Plan 01 (Packaging): created pyproject.toml with hatchling build backend
+- predicarb CLI entry point wired to src.cli:main; pip install -e . verified in fresh venv
+- pytest moved to [dev] optional dep; requirements.txt preserved unmodified
+- 149 tests still pass. PKG-01, PKG-02, PKG-03 marked complete.
+- Commits: 8ea4244 (feat pyproject.toml), 93c1f1a (docs SUMMARY/STATE/ROADMAP)
