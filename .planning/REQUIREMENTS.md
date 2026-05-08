@@ -46,8 +46,8 @@
 
 ### CI
 
-- [ ] **CI-01**: GitHub Actions workflow `.github/workflows/test.yml` runs `pytest` on push to `main` and on PRs
-- [ ] **CI-02**: CI matrix covers Python 3.13 on ubuntu-latest
+- [x] **CI-01**: GitHub Actions workflow `.github/workflows/test.yml` runs `pytest` on push to `main` and on PRs
+- [x] **CI-02**: CI matrix covers Python 3.13 on ubuntu-latest
 
 ## v2 Requirements
 
@@ -102,8 +102,8 @@
 | DOC-02 | Phase 4 | Complete |
 | DOC-03 | Phase 4 | Complete |
 | DOC-04 | Phase 4 | Complete |
-| CI-01 | Phase 5 | Pending |
-| CI-02 | Phase 5 | Pending |
+| CI-01 | Phase 5 | Complete |
+| CI-02 | Phase 5 | Complete |
 
 **Coverage:**
 - v1 requirements: 26 total

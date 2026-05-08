@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-02-PLAN.md (README complete documentation)
-last_updated: "2026-05-08T20:04:11.594Z"
+stopped_at: Completed 05-01-PLAN.md (GitHub Actions CI workflow)
+last_updated: "2026-05-08T20:18:52.588Z"
 last_activity: "2026-05-08 — Completed 02-01: ConstantBenchmark consolidation"
 progress:
   total_phases: 5
-  completed_phases: 3
-  total_plans: 7
-  completed_plans: 7
+  completed_phases: 4
+  total_plans: 8
+  completed_plans: 8
   percent: 100
 ---
 
@@ -56,6 +56,7 @@ Progress: [██████████] 100%
 | Phase 03-benchmark-registry P02 | 80 | 2 tasks | 2 files |
 | Phase 04-packaging-docs P01 | 48 | 1 tasks | 1 files |
 | Phase 04-packaging-docs P02 | 67 | 1 tasks | 1 files |
+| Phase 05-ci-ship P01 | 39 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,9 @@ Recent decisions affecting current work:
 - [Phase 04-packaging-docs]: Quickstart now uses pip install -e . and predicarb CLI — matches pyproject.toml entrypoint
 - [Phase 04-packaging-docs]: README Configuration Reference table follows 8-var surface from src/config.py exactly
 - [Phase 04-packaging-docs]: Phase 4 banner removed — README is now production-quality documentation
+- [Phase 05-ci-ship]: Single Python version matrix (3.13 only) — matches project requirement, no multi-version complexity needed
+- [Phase 05-ci-ship]: No coverage flags or extra pytest args in CI — keep invocation identical to local: python -m pytest
+- [Phase 05-ci-ship]: No env section in CI workflow — tests use tmp_path fixtures and no real network calls, zero secrets required
 
 ### Pending Todos
 
@@ -94,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-08T19:19:32.387Z
-Stopped at: Completed 04-02-PLAN.md (README complete documentation)
+Last session: 2026-05-08T20:18:52.585Z
+Stopped at: Completed 05-01-PLAN.md (GitHub Actions CI workflow)
 Resume file: None
