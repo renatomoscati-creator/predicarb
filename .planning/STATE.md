@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 04-01-PLAN.md (pyproject.toml packaging setup)
-last_updated: "2026-05-08T19:19:04.356Z"
+stopped_at: Completed 04-02-PLAN.md (README complete documentation)
+last_updated: "2026-05-08T19:19:32.389Z"
 last_activity: "2026-05-08 — Completed 02-01: ConstantBenchmark consolidation"
 progress:
   total_phases: 5
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 100
 ---
 
@@ -55,6 +55,7 @@ Progress: [██████████] 100%
 | Phase 03-benchmark-registry P03 | 54 | 1 tasks | 1 files |
 | Phase 03-benchmark-registry P02 | 80 | 2 tasks | 2 files |
 | Phase 04-packaging-docs P01 | 48 | 1 tasks | 1 files |
+| Phase 04-packaging-docs P02 | 67 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 03-benchmark-registry]: Shared benchmark instance for run-multi (one _build_benchmark call before ticker loop)
 - [Phase 04-packaging-docs]: Hatchling build backend chosen for pyproject.toml — zero-config for src/ layout, modern PEP 517/518
 - [Phase 04-packaging-docs]: pytest moved to optional dev dependency — not a runtime requirement
+- [Phase 04-packaging-docs]: Quickstart now uses pip install -e . and predicarb CLI — matches pyproject.toml entrypoint
+- [Phase 04-packaging-docs]: README Configuration Reference table follows 8-var surface from src/config.py exactly
+- [Phase 04-packaging-docs]: Phase 4 banner removed — README is now production-quality documentation
 
 ### Pending Todos
 
@@ -90,6 +94,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-08T19:19:04.354Z
-Stopped at: Completed 04-01-PLAN.md (pyproject.toml packaging setup)
+Last session: 2026-05-08T19:19:32.387Z
+Stopped at: Completed 04-02-PLAN.md (README complete documentation)
 Resume file: None

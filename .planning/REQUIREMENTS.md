@@ -39,10 +39,10 @@
 
 ### Documentation
 
-- [ ] **DOC-01**: `README.md` covers: what PredicArb is, prerequisites, quickstart (`pip install -e .` + demo run), all CLI commands with examples
-- [ ] **DOC-02**: README includes a config reference section (all env vars with defaults)
-- [ ] **DOC-03**: README includes a benchmark extension guide (how to add a new source in ~10 lines)
-- [ ] **DOC-04**: README includes architecture overview (module map, data flow)
+- [x] **DOC-01**: `README.md` covers: what PredicArb is, prerequisites, quickstart (`pip install -e .` + demo run), all CLI commands with examples
+- [x] **DOC-02**: README includes a config reference section (all env vars with defaults)
+- [x] **DOC-03**: README includes a benchmark extension guide (how to add a new source in ~10 lines)
+- [x] **DOC-04**: README includes architecture overview (module map, data flow)
 
 ### CI
 
@@ -98,10 +98,10 @@
 | PKG-01 | Phase 4 | Complete |
 | PKG-02 | Phase 4 | Complete |
 | PKG-03 | Phase 4 | Complete |
-| DOC-01 | Phase 4 | Pending |
-| DOC-02 | Phase 4 | Pending |
-| DOC-03 | Phase 4 | Pending |
-| DOC-04 | Phase 4 | Pending |
+| DOC-01 | Phase 4 | Complete |
+| DOC-02 | Phase 4 | Complete |
+| DOC-03 | Phase 4 | Complete |
+| DOC-04 | Phase 4 | Complete |
 | CI-01 | Phase 5 | Pending |
 | CI-02 | Phase 5 | Pending |
 

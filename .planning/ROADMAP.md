@@ -15,7 +15,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [ ] **Phase 1: Repo Hygiene** - Delete all dead code and junk, create .gitignore, make first clean git commit
 - [x] **Phase 2: Code Quality** - Eliminate duplicate ConstantBenchmark, replace dashboard _DB wrapper, confirm all tests stay green (completed 2026-05-08)
 - [x] **Phase 3: Benchmark Registry** - Add BenchmarkRegistry, wire CLI through it, extend run-multi with live benchmark support (completed 2026-05-08)
-- [ ] **Phase 4: Packaging & Docs** - pyproject.toml with predicarb entry point, complete README with quickstart/config/extension guide/architecture
+- [x] **Phase 4: Packaging & Docs** - pyproject.toml with predicarb entry point, complete README with quickstart/config/extension guide/architecture (completed 2026-05-08)
 - [ ] **Phase 5: CI & Ship** - GitHub Actions CI on push/PR for Python 3.13, project ready to publish
 
 ## Phase Details
@@ -100,5 +100,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Repo Hygiene | 1/1 | Complete | 2026-05-08 |
 | 2. Code Quality | 2/2 | Complete    | 2026-05-08 |
 | 3. Benchmark Registry | 3/3 | Complete   | 2026-05-08 |
-| 4. Packaging & Docs | 0/2 | Not started | - |
+| 4. Packaging & Docs | 2/2 | Complete   | 2026-05-08 |
 | 5. CI & Ship | 0/? | Not started | - |
