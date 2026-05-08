@@ -41,7 +41,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. `src/dashboard.py` contains no `_DB` class definition; dashboard data calls go through `src/storage/db.Database`
   3. No reference to `settings.kalshi_access_key` or any `kalshi` import exists anywhere in the live codebase
   4. `python3 -m pytest` exits 0 with 134 tests passing
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 02-PLAN-01.md — Consolidate ConstantBenchmark to csv_benchmark.py; verify QUAL-03 clean
+- [ ] 02-PLAN-02.md — Replace dashboard _DB with Database; add watched_tickers to storage layer
 
 ### Phase 3: Benchmark Registry
 **Goal**: A central registry maps benchmark source keys to factory functions; the CLI reads from it; `run-multi` supports live benchmark sources; adding a new benchmark requires no CLI edits.
@@ -85,7 +89,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Repo Hygiene | 0/? | Not started | - |
-| 2. Code Quality | 0/? | Not started | - |
+| 2. Code Quality | 0/2 | Ready | - |
 | 3. Benchmark Registry | 0/? | Not started | - |
 | 4. Packaging & Docs | 0/? | Not started | - |
 | 5. CI & Ship | 0/? | Not started | - |
