@@ -595,27 +595,16 @@ def cmd_run_multi(args: argparse.Namespace) -> int:
 
 
 def _build_benchmark(args: argparse.Namespace):
-    """Construct the appropriate BenchmarkProvider from CLI args."""
-    from src.benchmark.csv_benchmark import BenchmarkProvider, ConstantBenchmark
+    """Construct the appropriate BenchmarkProvider from the registry."""
+    from src.benchmark.registry import registry
 
     source = getattr(args, "benchmark_source", "constant") or "constant"
-
-    if source == "zq":
-        from datetime import date as _date
-        from src.benchmark.live_benchmark import ZqLiveBenchmark
-        meeting_date_str = args.zq_meeting_date
-        if not meeting_date_str:
-            raise ValueError("--benchmark-source zq requires --zq-meeting-date (YYYY-MM-DD)")
-        meeting_date = _date.fromisoformat(meeting_date_str)
-        ttl = getattr(args, "benchmark_ttl", 60)
-        return ZqLiveBenchmark(meeting_date=meeting_date, ttl_seconds=ttl)
-
-    # Default: constant benchmark
-    benchmark_prob = args.benchmark
-    if benchmark_prob is None:
-        raise ValueError("--benchmark is required when --benchmark-source is 'constant' (default)")
-
-    return ConstantBenchmark(benchmark_prob)
+    return registry.get(
+        source,
+        benchmark=getattr(args, "benchmark", None),
+        zq_meeting_date=getattr(args, "zq_meeting_date", None),
+        benchmark_ttl=getattr(args, "benchmark_ttl", 60.0),
+    )
 
 
 def cmd_run(args: argparse.Namespace) -> int:
