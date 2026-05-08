@@ -74,7 +74,11 @@ Plans:
   3. `README.md` exists with sections: what it is, prerequisites, quickstart, all CLI commands with examples
   4. README contains a config reference listing every env var with its default
   5. README contains a benchmark extension example showing how to add a new source in ~10 lines
-**Plans**: TBD
+**Plans**: 2 plans
+
+Plans:
+- [ ] 04-01-PLAN.md — Create pyproject.toml with hatchling build + predicarb entry point (PKG-01, PKG-02, PKG-03)
+- [ ] 04-02-PLAN.md — Expand README with prerequisites, updated quickstart, config reference, architecture + data flow (DOC-01, DOC-02, DOC-03, DOC-04)
 
 ### Phase 5: CI & Ship
 **Goal**: Every push to main and every pull request automatically runs the full test suite on Python 3.13; the project is in a state ready to be made public.
@@ -96,5 +100,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 | 1. Repo Hygiene | 1/1 | Complete | 2026-05-08 |
 | 2. Code Quality | 2/2 | Complete    | 2026-05-08 |
 | 3. Benchmark Registry | 3/3 | Complete   | 2026-05-08 |
-| 4. Packaging & Docs | 0/? | Not started | - |
+| 4. Packaging & Docs | 0/2 | Not started | - |
 | 5. CI & Ship | 0/? | Not started | - |
