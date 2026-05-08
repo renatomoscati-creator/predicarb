@@ -95,6 +95,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 |-------|----------------|--------|-----------|
 | 1. Repo Hygiene | 1/1 | Complete | 2026-05-08 |
 | 2. Code Quality | 2/2 | Complete    | 2026-05-08 |
-| 3. Benchmark Registry | 0/3 | Not started | - |
+| 3. Benchmark Registry | 1/3 | In Progress|  |
 | 4. Packaging & Docs | 0/? | Not started | - |
 | 5. CI & Ship | 0/? | Not started | - |

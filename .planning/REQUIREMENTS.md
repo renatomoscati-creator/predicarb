@@ -25,8 +25,8 @@
 
 ### Benchmark Framework
 
-- [ ] **BENCH-01**: `BenchmarkRegistry` added to `src/benchmark/registry.py` — maps string keys to factory functions
-- [ ] **BENCH-02**: ZQ benchmark registered under key `"zq"`, constant benchmark under `"constant"` — both via registry
+- [x] **BENCH-01**: `BenchmarkRegistry` added to `src/benchmark/registry.py` — maps string keys to factory functions
+- [x] **BENCH-02**: ZQ benchmark registered under key `"zq"`, constant benchmark under `"constant"` — both via registry
 - [ ] **BENCH-03**: `_build_benchmark()` in `src/cli.py` reads from registry; adding a new source requires only registering it, not editing CLI internals
 - [ ] **BENCH-04**: `run-multi` command supports `--benchmark-source` and `--zq-meeting-date` (same flag surface as `run`)
 - [ ] **BENCH-05**: Benchmark registry is documented with a clear extension example in README
@@ -90,8 +90,8 @@
 | QUAL-02 | Phase 2 | Complete |
 | QUAL-03 | Phase 2 | Complete (02-01) |
 | QUAL-04 | Phase 2 | Complete (02-01) |
-| BENCH-01 | Phase 3 | Pending |
-| BENCH-02 | Phase 3 | Pending |
+| BENCH-01 | Phase 3 | Complete |
+| BENCH-02 | Phase 3 | Complete |
 | BENCH-03 | Phase 3 | Pending |
 | BENCH-04 | Phase 3 | Pending |
 | BENCH-05 | Phase 3 | Pending |
