@@ -95,6 +95,14 @@ CREATE TABLE IF NOT EXISTS backtest_runs (
     max_drawdown    REAL    NOT NULL,
     params_json     TEXT    NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS watched_tickers (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    ticker    TEXT    NOT NULL UNIQUE,
+    label     TEXT    NOT NULL DEFAULT '',
+    benchmark REAL    NOT NULL DEFAULT 0.50,
+    added_at  TEXT    NOT NULL
+);
 """
 
 
@@ -387,3 +395,103 @@ class Database:
             )
             for r in rows
         ]
+
+    # ------------------------------------------------------------------
+    # Dashboard query methods (return raw sqlite3.Row lists for dict-access)
+    # ------------------------------------------------------------------
+
+    def positions(self) -> list:
+        """Return all positions as sqlite3.Row list (dict-accessible)."""
+        sql = "SELECT * FROM positions ORDER BY ticker"
+        with self._conn() as conn:
+            return conn.execute(sql).fetchall()
+
+    def open_orders(self, limit: int = 15) -> list:
+        """Return placed orders with a poly_order_id (latest first)."""
+        sql = (
+            "SELECT * FROM orders WHERE status='placed' AND poly_order_id IS NOT NULL "
+            "ORDER BY ts_utc DESC LIMIT ?"
+        )
+        with self._conn() as conn:
+            return conn.execute(sql, (limit,)).fetchall()
+
+    def signals(self, limit: int = 12) -> list:
+        """Return recent signals (latest first)."""
+        sql = "SELECT * FROM signals ORDER BY ts_utc DESC LIMIT ?"
+        with self._conn() as conn:
+            return conn.execute(sql, (limit,)).fetchall()
+
+    def fills(self, limit: int = 12) -> list:
+        """Return recent fills (latest first)."""
+        sql = "SELECT * FROM fills ORDER BY ts_utc DESC LIMIT ?"
+        with self._conn() as conn:
+            return conn.execute(sql, (limit,)).fetchall()
+
+    def ticks_latest(self) -> list:
+        """Return the latest tick for each ticker (latest ts_utc first)."""
+        sql = """
+        SELECT t.* FROM ticks t
+        INNER JOIN (SELECT ticker, MAX(ts_utc) AS mx FROM ticks GROUP BY ticker) l
+            ON t.ticker = l.ticker AND t.ts_utc = l.mx
+        ORDER BY t.ts_utc DESC
+        """
+        with self._conn() as conn:
+            return conn.execute(sql).fetchall()
+
+    def summary(self) -> dict:
+        """Aggregate KPIs for the dashboard summary row."""
+        with self._conn() as conn:
+            pos_rows = conn.execute(
+                "SELECT yes_count, realized_pnl FROM positions"
+            ).fetchall()
+            open_count = conn.execute(
+                "SELECT COUNT(*) FROM orders WHERE status='placed' AND poly_order_id IS NOT NULL"
+            ).fetchone()[0]
+        return {
+            "total_pnl":   sum(r["realized_pnl"] for r in pos_rows),
+            "open_long":   sum(r["yes_count"]        for r in pos_rows if r["yes_count"] > 0),
+            "open_short":  sum(abs(r["yes_count"])   for r in pos_rows if r["yes_count"] < 0),
+            "open_orders": open_count,
+            "markets":     len(pos_rows),
+        }
+
+    def watched(self) -> list:
+        """Return watched tickers joined with latest tick prices."""
+        sql = (
+            "SELECT w.*, t.yes_bid, t.yes_ask, t.yes_mid "
+            "FROM watched_tickers w "
+            "LEFT JOIN ("
+            "  SELECT t2.ticker, t2.yes_bid, t2.yes_ask, t2.yes_mid "
+            "  FROM ticks t2 "
+            "  INNER JOIN (SELECT ticker, MAX(ts_utc) mx FROM ticks GROUP BY ticker) lx "
+            "  ON t2.ticker=lx.ticker AND t2.ts_utc=lx.mx"
+            ") t ON w.ticker=t.ticker "
+            "ORDER BY w.added_at"
+        )
+        with self._conn() as conn:
+            return conn.execute(sql).fetchall()
+
+    def add_watched(self, ticker: str, label: str, benchmark: float) -> None:
+        """Insert or replace a watched ticker."""
+        from datetime import datetime, timezone
+        sql = (
+            "INSERT OR REPLACE INTO watched_tickers "
+            "(ticker, label, benchmark, added_at) VALUES (?, ?, ?, ?)"
+        )
+        with self._conn() as conn:
+            conn.execute(
+                sql,
+                (ticker.strip(), label.strip(), benchmark,
+                 datetime.now(timezone.utc).isoformat()),
+            )
+
+    def remove_watched(self, ticker: str) -> None:
+        """Remove a ticker from the watchlist."""
+        with self._conn() as conn:
+            conn.execute("DELETE FROM watched_tickers WHERE ticker=?", (ticker,))
+
+    def backtest_runs(self, limit: int = 10) -> list:
+        """Return recent backtest run rows (latest first)."""
+        sql = "SELECT * FROM backtest_runs ORDER BY ts_utc DESC LIMIT ?"
+        with self._conn() as conn:
+            return conn.execute(sql, (limit,)).fetchall()
