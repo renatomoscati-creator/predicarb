@@ -34,3 +34,19 @@
 - Created tests/test_constant_benchmark.py (2 tests, RED→GREEN TDD)
 - 136 tests passing (134 + 2 new). QUAL-01, QUAL-03, QUAL-04 resolved.
 - Commits: 9abae1a, 34c24aa
+
+## 2026-05-08 19:15
+- Executed Phase 2: renamed plan files to gsd-tools format, Wave 1 (02-01) consolidated ConstantBenchmark + 2 new tests, Wave 2 (02-02) replaced dashboard _DB with Database + watched_tickers DDL in schema. 136 tests pass. Wrote HANDOFF.md. Committed b85dd0b + handoff.
+
+## 2026-05-08 20:00
+- Planned Phase 3 (Benchmark Registry): read Phase 2 HANDOFF as research context, spawned planner + checker
+- 3 plans created in 2 waves: 03-01 (BenchmarkRegistry + TDD), 03-02 (CLI refactor + run-multi flags), 03-03 (README docs)
+- Checker passed all 5 BENCH requirements. Committed 694c5ac.
+
+## 2026-05-08 20:10
+- Executed Phase 3 Plan 01 (BenchmarkRegistry): TDD RED→GREEN
+- Created src/benchmark/registry.py: BenchmarkRegistry class with register()/get()/keys(), module-level singleton with "constant" and "zq" factories
+- Factories use **_ to swallow unrelated kwargs (CLI-forward safe); lazy imports keep registry side-effect free at import time
+- Created tests/test_benchmark_registry.py: 9 tests (constant, zq w/ mock, unknown key, custom register, kwargs forwarding, keys())
+- 145 tests passing (136 + 9 new). BENCH-01, BENCH-02 resolved.
+- Commits: 5385916 (feat), 90173ec (docs)
