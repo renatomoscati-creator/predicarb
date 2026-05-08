@@ -18,6 +18,15 @@
 ## 2026-05-08 18:30
 - Planned Phase 2 (Code Quality): read Phase 1 HANDOFF, created 02-RESEARCH.md from handoff, spawned gsd-planner (2 plans, 2 waves), plan-checker passed. Committed 8661ea0.
 
+## 2026-05-08 15:35
+
+- Executed Phase 2 Plan 02: migrated dashboard _DB class into src.storage.db.Database
+- Added watched_tickers DDL to _SCHEMA and 10 new dashboard query methods to Database (positions, open_orders, signals, fills, ticks_latest, summary, watched, add_watched, remove_watched, backtest_runs)
+- Removed ~95-line _DB class + _WATCHED_DDL from src/dashboard.py
+- Updated Dashboard to use Database(db_path) + init(); fixed BacktestTab path attr ._p → ._path
+- 136 tests still passing. QUAL-02 resolved.
+- Commits: 88a2315, fe4616a, 8ad8bec
+
 ## 2026-05-08 15:33
 - Executed Phase 2 Plan 01: consolidated ConstantBenchmark
 - Added ConstantBenchmark(prob: float) to src/benchmark/csv_benchmark.py (canonical single definition)
