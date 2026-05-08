@@ -33,9 +33,9 @@
 
 ### Packaging
 
-- [ ] **PKG-01**: `pyproject.toml` created with project metadata, dependencies (from `requirements.txt`), and `predicarb` entry point mapped to `src/cli.py:main`
-- [ ] **PKG-02**: Project installable via `pip install -e .` — `predicarb` command works after install
-- [ ] **PKG-03**: `requirements.txt` preserved for backward compat but `pyproject.toml` is canonical
+- [x] **PKG-01**: `pyproject.toml` created with project metadata, dependencies (from `requirements.txt`), and `predicarb` entry point mapped to `src/cli.py:main`
+- [x] **PKG-02**: Project installable via `pip install -e .` — `predicarb` command works after install
+- [x] **PKG-03**: `requirements.txt` preserved for backward compat but `pyproject.toml` is canonical
 
 ### Documentation
 
@@ -95,9 +95,9 @@
 | BENCH-03 | Phase 3 | Complete |
 | BENCH-04 | Phase 3 | Complete |
 | BENCH-05 | Phase 3 | Complete |
-| PKG-01 | Phase 4 | Pending |
-| PKG-02 | Phase 4 | Pending |
-| PKG-03 | Phase 4 | Pending |
+| PKG-01 | Phase 4 | Complete |
+| PKG-02 | Phase 4 | Complete |
+| PKG-03 | Phase 4 | Complete |
 | DOC-01 | Phase 4 | Pending |
 | DOC-02 | Phase 4 | Pending |
 | DOC-03 | Phase 4 | Pending |

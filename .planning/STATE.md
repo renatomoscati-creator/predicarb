@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-02-PLAN.md (CLI registry dispatch + run-multi flags)
-last_updated: "2026-05-08T17:40:30.177Z"
+stopped_at: Completed 04-01-PLAN.md (pyproject.toml packaging setup)
+last_updated: "2026-05-08T19:19:04.356Z"
 last_activity: "2026-05-08 — Completed 02-01: ConstantBenchmark consolidation"
 progress:
   total_phases: 5
   completed_phases: 2
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 7
+  completed_plans: 6
   percent: 100
 ---
 
@@ -54,6 +54,7 @@ Progress: [██████████] 100%
 | Phase 03-benchmark-registry P01 | 120 | 1 tasks | 2 files |
 | Phase 03-benchmark-registry P03 | 54 | 1 tasks | 1 files |
 | Phase 03-benchmark-registry P02 | 80 | 2 tasks | 2 files |
+| Phase 04-packaging-docs P01 | 48 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 03-benchmark-registry]: _build_benchmark() is now a pure pass-through to registry.get() — validation lives in factories
 - [Phase 03-benchmark-registry]: run-multi --benchmark changed from required to optional — registry validates at runtime
 - [Phase 03-benchmark-registry]: Shared benchmark instance for run-multi (one _build_benchmark call before ticker loop)
+- [Phase 04-packaging-docs]: Hatchling build backend chosen for pyproject.toml — zero-config for src/ layout, modern PEP 517/518
+- [Phase 04-packaging-docs]: pytest moved to optional dev dependency — not a runtime requirement
 
 ### Pending Todos
 
@@ -87,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-05-08T17:38:15.349Z
-Stopped at: Completed 03-02-PLAN.md (CLI registry dispatch + run-multi flags)
+Last session: 2026-05-08T19:19:04.354Z
+Stopped at: Completed 04-01-PLAN.md (pyproject.toml packaging setup)
 Resume file: None
