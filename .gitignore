@@ -1,11 +1,7 @@
 venv/
 graphify-out/
-#/
-already/
-haven't/
-if/
-you/
 data/
+agent_log.md
 logs/
 *.pyc
 __pycache__/
@@ -17,3 +13,21 @@ dist/
 build/
 .coverage
 htmlcov/
+
+# ── AI agent internals (never commit) ──────────────────────────────
+.claude/
+.agents/
+.superpowers/
+.qwen/
+.planning/
+.lovable/
+.playwright-mcp/
+graphify-out/
+creandum-scout/
+skills/
+
+# Agent logs & instructions
+agent_log.md
+CLAUDE.md
+AGENTS.md
+HANDOFF.md
