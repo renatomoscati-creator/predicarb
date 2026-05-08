@@ -44,7 +44,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans**: 2 plans
 
 Plans:
-- [ ] 02-PLAN-01.md — Consolidate ConstantBenchmark to csv_benchmark.py; verify QUAL-03 clean
+- [x] 02-PLAN-01.md — Consolidate ConstantBenchmark to csv_benchmark.py; verify QUAL-03 clean
 - [ ] 02-PLAN-02.md — Replace dashboard _DB with Database; add watched_tickers to storage layer
 
 ### Phase 3: Benchmark Registry
@@ -88,8 +88,8 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Repo Hygiene | 0/? | Not started | - |
-| 2. Code Quality | 0/2 | Ready | - |
+| 1. Repo Hygiene | 1/1 | Complete | 2026-05-08 |
+| 2. Code Quality | 1/2 | In progress | - |
 | 3. Benchmark Registry | 0/? | Not started | - |
 | 4. Packaging & Docs | 0/? | Not started | - |
 | 5. CI & Ship | 0/? | Not started | - |

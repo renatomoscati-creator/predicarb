@@ -5,32 +5,32 @@
 See: .planning/PROJECT.md (updated 2026-05-08)
 
 **Core value:** The edge signal: `benchmark_prob − market_mid`. Everything else is infrastructure to compute it reliably, trade on it safely, and iterate with backtesting.
-**Current focus:** Phase 1 — Repo Hygiene
+**Current focus:** Phase 2 — Code Quality
 
 ## Current Position
 
-Phase: 1 of 5 (Repo Hygiene)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-05-08 — Roadmap created, requirements mapped, STATE.md initialized
+Phase: 2 of 5 (Code Quality)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-05-08 — Completed 02-01: ConstantBenchmark consolidation
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 20%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 0
-- Average duration: -
-- Total execution time: 0 hours
+- Total plans completed: 1
+- Average duration: ~1 min
+- Total execution time: 0.02 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| - | - | - | - |
+| 02-code-quality | 1 | 73s | 73s |
 
 **Recent Trend:**
-- Last 5 plans: none yet
+- Last 5 plans: 02-01 (73s)
 - Trend: -
 
 *Updated after each plan completion*
@@ -46,6 +46,8 @@ Recent decisions affecting current work:
 - Benchmark registry via dict + factory function — avoids heavy plugin framework
 - Keep ZQ as only live benchmark in v1 — user confirmed ZQ already works
 - Interactive GSD mode — no auto-advance, user approves each phase transition
+- ConstantBenchmark: constructor arg (prob: float) over closure capture — enables import-time instantiation
+- No explicit BenchmarkProvider inheritance for ConstantBenchmark — Protocol duck-typing sufficient
 
 ### Pending Todos
 
@@ -58,5 +60,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-08
-Stopped at: Roadmap created and written to .planning/ROADMAP.md
-Resume file: None
+Stopped at: Completed 02-01-PLAN.md (ConstantBenchmark consolidation)
+Resume file: .planning/phases/02-code-quality/02-01-SUMMARY.md

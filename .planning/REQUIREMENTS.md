@@ -18,10 +18,10 @@
 
 ### Code Quality
 
-- [ ] **QUAL-01**: Duplicate `ConstantBenchmark` class (defined 3× inline in `src/cli.py`) consolidated into a single module-level definition
+- [x] **QUAL-01**: Duplicate `ConstantBenchmark` class (defined 3× inline in `src/cli.py`) consolidated into a single module-level definition
 - [ ] **QUAL-02**: Dashboard `_DB` inline class replaced with `src/storage/db.Database` (dashboard reads positions/orders/ticks/backtest_runs from the same DB abstraction)
-- [ ] **QUAL-03**: `KalshiClient` reference to non-existent `settings.kalshi_access_key` eliminated (deletion of `src/kalshi/` handles this)
-- [ ] **QUAL-04**: All 134 existing tests remain green throughout the cleanup
+- [x] **QUAL-03**: `KalshiClient` reference to non-existent `settings.kalshi_access_key` eliminated (deletion of `src/kalshi/` handles this)
+- [x] **QUAL-04**: All 134 existing tests remain green throughout the cleanup
 
 ### Benchmark Framework
 
@@ -86,10 +86,10 @@
 | HYG-06 | Phase 1 | Pending |
 | HYG-07 | Phase 1 | Pending |
 | HYG-08 | Phase 1 | Pending |
-| QUAL-01 | Phase 2 | Pending |
+| QUAL-01 | Phase 2 | Complete (02-01) |
 | QUAL-02 | Phase 2 | Pending |
-| QUAL-03 | Phase 2 | Pending |
-| QUAL-04 | Phase 2 | Pending |
+| QUAL-03 | Phase 2 | Complete (02-01) |
+| QUAL-04 | Phase 2 | Complete (02-01) |
 | BENCH-01 | Phase 3 | Pending |
 | BENCH-02 | Phase 3 | Pending |
 | BENCH-03 | Phase 3 | Pending |
